@@ -2,200 +2,486 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investigación Taller ANAGUT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Fuentes: Lora para títulos (toque clásico/artesanal) y Nunito para lectura -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calle Peligrosa AR</title>
+    
     <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            /* Color de fondo arena/arcilla claro con un sutil patrón de puntos */
-            background-color: #f4ebd8;
-            background-image: radial-gradient(#d5c3b3 1px, transparent 1px);
-            background-size: 20px 20px;
+        :root {
+            --primary: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --alert: #ff0000;
+            --success: #2ecc71;
         }
-        .fuente-artesanal {
-            font-family: 'Lora', serif;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
         }
-        textarea {
-            resize: vertical;
-            min-height: 100px;
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
         }
-        /* Estilo de textura de papel para el contenedor principal */
-        .textura-papel {
-            background-color: #fdfbf7;
-            box-shadow: 0 10px 40px rgba(139, 69, 19, 0.15);
+
+        /* Camera Background */
+        #bg-camera {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* UI Overlays */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--light);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            background-color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Game HUD */
+        #game-hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        #score-display {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
+
+        /* Warnings */
+        .warning-indicator {
+            position: absolute;
+            font-size: 4rem;
+            color: var(--alert);
+            text-shadow: 0 0 15px rgba(255,0,0,0.8);
+            animation: pulse 0.5s infinite alternate;
+            display: none;
+        }
+
+        #warn-left { top: 50%; left: 20px; transform: translateY(-50%); }
+        #warn-right { top: 50%; right: 20px; transform: translateY(-50%); }
+        #warn-back { bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 3rem; }
+
+        @keyframes pulse {
+            from { opacity: 0.3; transform: scale(0.9) translateY(-50%); }
+            to { opacity: 1; transform: scale(1.1) translateY(-50%); }
+        }
+        @keyframes pulse-back {
+            from { opacity: 0.3; transform: scale(0.9) translateX(-50%); }
+            to { opacity: 1; transform: scale(1.1) translateX(-50%); }
+        }
+        #warn-back { animation: pulse-back 0.5s infinite alternate; }
+
+        /* Enemy entity */
+        #enemy-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            font-size: 10rem;
+            display: none;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+            transition: transform 0.1s linear;
+        }
+
+        /* Success text */
+        #success-text {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: var(--success);
+            font-weight: bold;
+            text-shadow: 2px 2px 5px #000;
+            display: none;
+            animation: popUp 0.5s ease-out forwards;
+        }
+
+        @keyframes popUp {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Screamer / Game Over Effect */
+        .screamer-active {
+            animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both infinite;
+            background-color: #ff0000 !important;
+        }
+        .screamer-active #bg-camera {
+            display: none;
+        }
+        
+        #screamer-entity {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(3);
+            font-size: 15rem;
+            display: none;
+            z-index: 20;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-5px, 0, 0); }
+            20%, 80% { transform: translate3d(5px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-10px, 10px, 0); }
+            40%, 60% { transform: translate3d(10px, -10px, 0); }
         }
     </style>
 </head>
-<body class="text-amber-950 antialiased py-10 px-4 sm:px-6 lg:px-8">
+<body>
 
-    <div class="max-w-4xl mx-auto textura-papel p-8 md:p-12 rounded-sm border-x-8 border-orange-800 relative">
-        
-        <!-- Adorno superior -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-orange-800 text-2xl">
-            ♦ ♢ ♦
-        </div>
+    <!-- Camera Background -->
+    <video id="bg-camera" autoplay playsinline muted></video>
 
-        <!-- Encabezado -->
-        <h1 class="fuente-artesanal text-3xl md:text-4xl font-bold text-center text-amber-900 uppercase border-b-2 border-dashed border-amber-700 pb-6 mb-8 tracking-wide mt-4">
-            Investigación Taller ANAGUT
-        </h1>
-        
-        <!-- Información de la Entrevista -->
-        <div class="bg-[#f8f1e5] border-2 border-amber-200 p-6 mb-8 rounded-md shadow-sm relative">
-            <!-- Pin decorativo -->
-            <div class="absolute -top-3 -left-3 w-6 h-6 bg-orange-700 rounded-full border-4 border-[#fdfbf7] shadow-sm"></div>
-            
-            <h2 class="fuente-artesanal text-xl font-bold text-amber-900 mb-3 border-b border-amber-300 pb-2">ENCUESTA DE TRAYECTORIA Y PERCEPCIÓN ARTÍSTICA</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div>
-                    <p class="mb-2"><span class="font-bold text-amber-800">Entrevistada:</span> Ana Edith Gutiérrez Vacca</p>
-                    <p class="mb-2"><span class="font-bold text-amber-800">Lugar:</span> Tunja, Boyacá</p>
-                </div>
-                <div class="border-t border-dashed border-amber-300 md:border-t-0 md:border-l md:border-amber-300 pt-4 md:pt-0 md:pl-6">
-                    <p class="font-bold text-amber-800 mb-1">Equipo Investigador:</p>
-                    <ul class="list-none text-amber-950 space-y-1">
-                        <li><span class="text-orange-700 mr-2">»</span> Andres Felipe Guerrero Sierra</li>
-                        <li><span class="text-orange-700 mr-2">»</span> Paula Daniel Torres Jiménez</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instrucciones -->
-        <div class="bg-orange-50 text-orange-900 p-5 rounded-md mb-10 border border-orange-200 shadow-inner">
-            <p><span class="fuente-artesanal font-bold text-lg text-orange-800">Instrucciones:</span> Las siguientes preguntas tienen como objetivo conocer la trayectoria artística, la visión sobre la artesanía y la labor pedagógica de la maestra Ana Edith Gutiérrez en el taller ANAGUT. Por favor, responda con el mayor detalle posible.</p>
-        </div>
-
-        <!-- Formulario conectado a FormSubmit -->
-        <form action="https://formsubmit.co/andres.guerrero04@uptc.edu.co" method="POST" class="space-y-10">
-            
-            <!-- Configuración oculta de FormSubmit -->
-            <input type="hidden" name="_subject" value="Nuevas respuestas: Investigación Taller ANAGUT">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-
-            <div class="w-full md:w-1/3">
-                <label for="fecha" class="block font-bold text-amber-900 mb-2">Fecha de diligenciamiento:</label>
-                <input type="date" id="fecha" name="Fecha" required class="w-full p-3 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors">
-            </div>
-
-            <!-- SECCIÓN 1 -->
-            <div class="relative pt-6">
-                <h2 class="fuente-artesanal bg-amber-900 text-[#fdfbf7] p-3 pl-5 rounded-sm font-bold text-xl mb-6 shadow-md border-l-4 border-orange-500 inline-block w-full">
-                    SECCIÓN 1: Trayectoria y Visión Personal
-                </h2>
-                
-                <div class="space-y-8 pl-2 md:pl-4 border-l-2 border-dashed border-amber-200">
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">1. ¿Quién es usted y a qué se dedica actualmente?</label>
-                        <textarea name="1_Quien_es_y_a_que_se_dedica" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors placeholder-amber-200"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">2. ¿Hace cuánto tiempo se dedica al trabajo artesanal y cómo fueron sus inicios?</label>
-                        <textarea name="2_Inicios_trabajo_artesanal" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">3. ¿Cómo aprendió y perfeccionó sus habilidades y destrezas artesanales?</label>
-                        <textarea name="3_Aprendizaje_habilidades" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">4. ¿Qué cree usted que le aporta el taller ANAGUT a su vida personal y profesional?</label>
-                        <textarea name="4_Aporte_del_taller_a_su_vida" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECCIÓN 2 -->
-            <div class="relative pt-6">
-                <h2 class="fuente-artesanal bg-amber-900 text-[#fdfbf7] p-3 pl-5 rounded-sm font-bold text-xl mb-6 shadow-md border-l-4 border-orange-500 inline-block w-full">
-                    SECCIÓN 2: Arte, Artesanía y Mercado
-                </h2>
-
-                <div class="space-y-8 pl-2 md:pl-4 border-l-2 border-dashed border-amber-200">
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">5. ¿Cree que su trabajo es estrictamente artesanal o lo considera un trabajo artístico?</label>
-                        <textarea name="5_Artesanal_o_artistico" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">6. Desde su experiencia, ¿cuál cree que es la principal distinción entre arte y artesanía?</label>
-                        <textarea name="6_Distincion_arte_y_artesania" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">7. ¿Cómo se manejan sus productos de evocación costumbrista en el mercado y hacia qué público van enfocados?</label>
-                        <textarea name="7_Mercado_y_publico" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">8. ¿El taller ANAGUT ha tenido acercamientos o colaboraciones con centros artísticos de Tunja (como museos o casas culturales)?</label>
-                        <textarea name="8_Acercamientos_centros_Tunjana" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">9. ¿Por qué vale la pena preservar las artesanías tradicionales y cómo cree que se pueden adaptar para asegurar su subsistencia en la contemporaneidad?</label>
-                        <textarea name="9_Preservacion_artesanias" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">10. ¿Qué cree usted que le aporta el taller ANAGUT a la comunidad Tunjana en términos de cultura e identidad?</label>
-                        <textarea name="10_Aporte_comunidad_Tunjana" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECCIÓN 3 -->
-            <div class="relative pt-6">
-                <h2 class="fuente-artesanal bg-amber-900 text-[#fdfbf7] p-3 pl-5 rounded-sm font-bold text-xl mb-6 shadow-md border-l-4 border-orange-500 inline-block w-full">
-                    SECCIÓN 3: Labor Pedagógica y Percepción de los Participantes
-                </h2>
-
-                <div class="space-y-8 pl-2 md:pl-4 border-l-2 border-dashed border-amber-200">
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">11. Durante los diez años que lleva impartiendo talleres a niños y niñas, ¿qué es lo que más le sorprende al ver cómo expresan sus sentimientos y creatividad a través de los materiales?</label>
-                        <textarea name="11_Sorpresa_creatividad_ninos" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">12. Usted menciona que el arte es clave para el desarrollo. ¿Cómo evidencia el crecimiento motriz y cognitivo en los participantes a lo largo de sus talleres?</label>
-                        <textarea name="12_Desarrollo_motriz_cognitivo" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">13. Teniendo en cuenta su capacitación en el uso de materiales recuperados, ¿cómo percibe la respuesta de los alumnos cuando transforman elementos reciclados en arte?</label>
-                        <textarea name="13_Respuesta_materiales_recuperados" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">14. Con su experiencia en pedagogía, ¿cómo adapta su enseñanza para conectar con las diferentes personalidades y habilidades de quienes asisten a ANAGUT?</label>
-                        <textarea name="14_Adaptacion_pedagogica" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-amber-900 mb-2 text-lg">15. ¿Qué huella o legado espera que el taller ANAGUT deje en los niños y niñas, no solo a nivel de destreza técnica, sino a nivel de desarrollo humano?</label>
-                        <textarea name="15_Legado_en_ninos" required class="w-full p-4 border-2 border-amber-200 rounded-sm focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 bg-[#fffdfa] text-amber-900 shadow-sm transition-colors"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botón de Envío -->
-            <div class="pt-8 border-t-2 border-dashed border-amber-200 text-center">
-                <button type="submit" class="w-full md:w-auto inline-flex justify-center items-center px-10 py-4 bg-orange-700 hover:bg-orange-800 text-[#fdfbf7] text-xl font-bold rounded-sm transition duration-300 shadow-[4px_4px_0_0_rgba(120,53,15,1)] hover:shadow-[2px_2px_0_0_rgba(120,53,15,1)] hover:translate-x-[2px] hover:translate-y-[2px] border border-amber-900 fuente-artesanal uppercase tracking-wider">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Enviar Respuestas
-                </button>
-                <p class="text-sm text-amber-700 mt-6 font-semibold">Al enviar, las respuestas llegarán directamente a andres.guerrero04@uptc.edu.co</p>
-            </div>
-        </form>
+    <!-- Start Screen -->
+    <div id="start-screen" class="overlay">
+        <h1>Calle Peligrosa AR 🚦</h1>
+        <p>Gira físicamente tu celular para ver a tu alrededor. <br><br>
+        Evita que las 🏍️ y 🚶 te atropellen mirándolos de frente antes de que sea tarde.<br><br>
+        ¡Haz caso a las flechas rojas!</p>
+        <button id="btn-start">Iniciar Juego</button>
     </div>
 
+    <!-- Game HUD (Heads Up Display) -->
+    <div id="game-hud" class="hidden">
+        <div id="score-display">0</div>
+        
+        <!-- Directional Warnings -->
+        <div id="warn-left" class="warning-indicator">⬅️</div>
+        <div id="warn-right" class="warning-indicator">➡️</div>
+        <div id="warn-back" class="warning-indicator">⚠️ ATRÁS ⚠️</div>
+        
+        <!-- The Enemy -->
+        <div id="enemy-container">🏍️</div>
+        <div id="success-text">¡Esquivado!</div>
+    </div>
+
+    <!-- Screamer Entity -->
+    <div id="screamer-entity">💥</div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="overlay hidden" style="z-index: 30;">
+        <h1 style="color: var(--alert);">¡TE ATROPELLARON!</h1>
+        <p>Puntaje Final: <span id="final-score" style="font-weight:bold; font-size: 2rem;">0</span></p>
+        <button id="btn-restart">Volver a jugar</button>
+    </div>
+
+    <script>
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const gameHud = document.getElementById('game-hud');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const btnStart = document.getElementById('btn-start');
+        const btnRestart = document.getElementById('btn-restart');
+        const scoreDisplay = document.getElementById('score-display');
+        const finalScore = document.getElementById('final-score');
+        const bgCamera = document.getElementById('bg-camera');
+        
+        const enemyContainer = document.getElementById('enemy-container');
+        const warnLeft = document.getElementById('warn-left');
+        const warnRight = document.getElementById('warn-right');
+        const warnBack = document.getElementById('warn-back');
+        const successText = document.getElementById('success-text');
+        const screamerEntity = document.getElementById('screamer-entity');
+
+        // Game State
+        let isPlaying = false;
+        let score = 0;
+        let gameLoopId;
+        
+        // Orientation variables
+        let currentAngle = 0;
+        let baseAngle = 0;
+        
+        // Enemy State
+        let activeEnemy = false;
+        let enemyType = '🏍️';
+        let enemyZone = 0; // 0: Frente, 1: Derecha, 2: Atrás, 3: Izquierda
+        let enemyStartTime = 0;
+        let enemyDuration = 3000; // MS to dodge
+        let enemyTypes = ['🏍️', '🚶', '🏎️', '🚴'];
+
+        btnStart.addEventListener('click', initGame);
+        btnRestart.addEventListener('click', resetGame);
+
+        async function initGame() {
+            // Request Orientation Permission (Crucial for iOS)
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                try {
+                    const permission = await DeviceOrientationEvent.requestPermission();
+                    if (permission !== 'granted') {
+                        alert('Se requieren permisos de giroscopio para jugar.');
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Error requesting orientation permission:', error);
+                }
+            }
+
+            // Start Camera
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                bgCamera.srcObject = stream;
+            } catch (err) {
+                console.warn('Cámara no disponible, usando fondo negro.', err);
+                // Game can still play without camera, relies on gyro
+            }
+
+            // Start Sensors
+            window.addEventListener('deviceorientation', handleOrientation);
+
+            // Hide UI, Start Game
+            startScreen.classList.add('hidden');
+            
+            // Give 1 second to calibrate 'Frente'
+            setTimeout(() => {
+                calibrateBaseAngle();
+                gameHud.classList.remove('hidden');
+                isPlaying = true;
+                score = 0;
+                updateScore();
+                spawnEnemy();
+                gameLoopId = requestAnimationFrame(gameLoop);
+            }, 1000);
+        }
+
+        function handleOrientation(event) {
+            // Normalize angle. Prefer webkitCompassHeading (iOS), fallback to alpha (Android)
+            if (event.webkitCompassHeading) {
+                currentAngle = event.webkitCompassHeading;
+            } else if (event.alpha !== null) {
+                // Alpha goes counter-clockwise. Subtract from 360 to make it clockwise like compass.
+                currentAngle = 360 - event.alpha; 
+            }
+        }
+
+        function calibrateBaseAngle() {
+            baseAngle = currentAngle;
+        }
+
+        // Zones: 0 (Front), 1 (Right), 2 (Back), 3 (Left)
+        function getFacingZone() {
+            // Calculate relative angle (0 to 360) clockwise from calibration point
+            let relAngle = (currentAngle - baseAngle + 360) % 360;
+            
+            if (relAngle > 315 || relAngle <= 45) return 0; // Frente
+            if (relAngle > 45 && relAngle <= 135) return 1;  // Derecha
+            if (relAngle > 135 && relAngle <= 225) return 2; // Atrás
+            if (relAngle > 225 && relAngle <= 315) return 3; // Izquierda
+            return 0;
+        }
+
+        function spawnEnemy() {
+            if (!isPlaying) return;
+            activeEnemy = true;
+            enemyStartTime = Date.now();
+            
+            // Speed up game gradually
+            enemyDuration = Math.max(1200, 3000 - (score * 150)); 
+            
+            // Randomize enemy
+            enemyType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+            enemyContainer.innerText = enemyType;
+            screamerEntity.innerText = '💥'; // Crash icon
+            
+            // Pick random zone (0, 1, 2, or 3)
+            enemyZone = Math.floor(Math.random() * 4);
+            
+            enemyContainer.style.display = 'none';
+            hideWarnings();
+        }
+
+        function gameLoop() {
+            if (!isPlaying) return;
+
+            let facingZone = getFacingZone();
+
+            if (activeEnemy) {
+                let elapsed = Date.now() - enemyStartTime;
+                let progress = elapsed / enemyDuration;
+
+                if (progress >= 1) {
+                    // Time's up! Resolve conflict
+                    if (facingZone === enemyZone) {
+                        dodgeEnemy();
+                    } else {
+                        triggerGameOver();
+                        return; // Stop loop
+                    }
+                } else {
+                    // Render current state
+                    if (facingZone === enemyZone) {
+                        // Player is looking at the enemy
+                        hideWarnings();
+                        enemyContainer.style.display = 'block';
+                        // Scale from 0.1 to 3 to simulate approaching
+                        let scale = 0.1 + (progress * 3);
+                        enemyContainer.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                    } else {
+                        // Player is NOT looking, show directional warnings
+                        enemyContainer.style.display = 'none';
+                        showWarnings(facingZone, enemyZone);
+                    }
+                }
+            }
+
+            gameLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        function showWarnings(facing, target) {
+            hideWarnings();
+            // Calculate relative position of target to where we are facing
+            let relation = (target - facing + 4) % 4;
+
+            if (relation === 1) {
+                warnRight.style.display = 'block';
+            } else if (relation === 3) {
+                warnLeft.style.display = 'block';
+            } else if (relation === 2) {
+                warnBack.style.display = 'block';
+            }
+        }
+
+        function hideWarnings() {
+            warnLeft.style.display = 'none';
+            warnRight.style.display = 'none';
+            warnBack.style.display = 'none';
+        }
+
+        function dodgeEnemy() {
+            activeEnemy = false;
+            score++;
+            updateScore();
+            enemyContainer.style.display = 'none';
+            
+            // Show success animation
+            successText.style.display = 'block';
+            successText.style.animation = 'none';
+            successText.offsetHeight; // trigger reflow
+            successText.style.animation = 'popUp 0.5s ease-out forwards';
+
+            // Wait a brief moment, then spawn next
+            setTimeout(() => {
+                successText.style.display = 'none';
+                spawnEnemy();
+            }, 800);
+        }
+
+        function updateScore() {
+            scoreDisplay.innerText = score;
+        }
+
+        function triggerGameOver() {
+            isPlaying = false;
+            activeEnemy = false;
+            cancelAnimationFrame(gameLoopId);
+            
+            hideWarnings();
+            enemyContainer.style.display = 'none';
+            gameHud.classList.add('hidden');
+
+            // Haptic Feedback
+            if(navigator.vibrate) navigator.vibrate([200, 100, 300]);
+
+            // Screamer effect
+            document.body.classList.add('screamer-active');
+            screamerEntity.style.display = 'block';
+
+            setTimeout(() => {
+                document.body.classList.remove('screamer-active');
+                screamerEntity.style.display = 'none';
+                
+                finalScore.innerText = score;
+                gameOverScreen.classList.remove('hidden');
+            }, 1000);
+        }
+
+        function resetGame() {
+            gameOverScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            
+            // Stop camera to re-init properly if needed
+            if(bgCamera.srcObject) {
+                bgCamera.srcObject.getTracks().forEach(track => track.stop());
+            }
+            window.removeEventListener('deviceorientation', handleOrientation);
+        }
+
+    </script>
 </body>
 </html>
