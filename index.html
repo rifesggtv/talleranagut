@@ -951,4 +951,4916 @@
 
     .result-title span {
       color: var(--yellow);
-      -webkit-
+      -webkit-text-stroke: 1px var(--ink);
+    }
+
+    .result-message {
+      max-width: 760px;
+      font-family: var(--hand);
+      font-size: 1.45rem;
+      line-height: 1.05;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 26px 0;
+    }
+
+    .stats-grid > div {
+      min-height: 104px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 2px solid var(--ink);
+      box-shadow:
+        4px 5px 0 rgba(0, 0, 0, 0.12);
+      transform: rotate(var(--rot, 0deg));
+    }
+
+    .stats-grid span {
+      display: block;
+      font-family: var(--hand);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .stats-grid strong {
+      display: block;
+      margin-top: 6px;
+      font-family: var(--marker);
+      font-size: 1.7rem;
+    }
+
+    blockquote {
+      margin: 26px 0;
+      padding: 18px 20px;
+      background: rgba(247, 199, 0, 0.32);
+      border: 3px solid var(--ink);
+      box-shadow:
+        5px 6px 0 rgba(0, 0, 0, 0.13);
+      font-family: var(--hand);
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.05;
+      transform: rotate(0.4deg);
+    }
+
+    .reflection {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      font-family: var(--hand);
+      font-size: 1.15rem;
+      line-height: 1.08;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    dialog {
+      max-width: 430px;
+      background: var(--paper-3);
+      border: 3px solid var(--ink);
+      color: var(--ink);
+      box-shadow:
+        8px 9px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    dialog h3 {
+      margin-top: 0;
+      font-family: var(--marker);
+    }
+
+    dialog p {
+      font-family: var(--hand);
+      font-size: 1.1rem;
+    }
+
+    .debug-panel {
+      position: absolute;
+      z-index: 18;
+      left: 10px;
+      bottom: 90px;
+      width: 220px;
+      padding: 8px;
+      background: rgba(247, 241, 229, 0.9);
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      box-shadow:
+        3px 4px 0 rgba(0, 0, 0, 0.16);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.7rem;
+      line-height: 1.3;
+    }
+
+    .debug-panel pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 760px) {
+      .title-zone {
+        grid-template-columns: 1fr;
+      }
+
+      .main-title {
+        font-size: clamp(4.5rem, 21vw, 7.4rem);
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .hud-top {
+        grid-template-columns: 112px 1fr auto;
+      }
+
+      .sensor-panel {
+        top: 88px;
+        max-width: 290px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .status-strip {
+        top: 181px;
+      }
+
+      .route-ui {
+        top: 235px;
+      }
+
+      .instruction {
+        bottom: 94px;
+        font-size: 0.9rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reflection {
+        grid-template-columns: 1fr;
+      }
+
+      .debug-panel {
+        width: 180px;
+        font-size: 0.62rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div
+    class="paper-noise"
+    aria-hidden="true"
+  ></div>
+
+  <main id="app">
+    <section
+      id="intro"
+      class="screen intro-screen paper-bg"
+      aria-labelledby="project-title"
+    >
+      <div class="intro-doodle one"></div>
+      <div class="intro-doodle two"></div>
+
+      <div class="intro-wrap">
+        <div class="title-zone">
+          <header>
+            <span class="eyebrow">
+              intervención digital situada · UPTC · versión boceto expandida
+            </span>
+
+            <h1
+              id="project-title"
+              class="main-title"
+            >
+              ESQUIVAR
+              <br />
+              EL
+              <span class="r">R</span>
+            </h1>
+
+            <p class="manifesto">
+              <span class="highlight">
+                Cruzar una entrada
+              </span>
+              no debería sentirse como pasar un nivel.
+            </p>
+          </header>
+
+          <article class="doodle-card sketch-box">
+            <span class="tape tl"></span>
+            <span class="tape br"></span>
+
+            <h2>
+              EL JUEGO YA EXISTE.
+            </h2>
+
+            <p>
+              Está en cambiar de trayectoria, ceder el paso,
+              esperar frente a un torniquete y calcular por dónde
+              cabe el cuerpo.
+            </p>
+
+            <p class="critical">
+              Aquí nadie es “el enemigo”. El conflicto aparece cuando
+              <b>
+                velocidades, trayectorias y espacio
+              </b>
+              se superponen.
+            </p>
+          </article>
+        </div>
+
+        <div class="intro-grid">
+          <section
+            class="sketch-box doodle-card"
+            style="transform: rotate(-0.45deg)"
+          >
+            <span class="tape tr"></span>
+
+            <h2>
+              ¿CÓMO FUNCIONA?
+            </h2>
+
+            <div class="mini-grid">
+              <div
+                class="mini-step"
+                data-n="1"
+                style="--rot: -0.7deg"
+              >
+                <strong>
+                  CÁMARA
+                </strong>
+
+                <span>
+                  Reconoce personas y motocicletas en tiempo real.
+                </span>
+              </div>
+
+              <div
+                class="mini-step"
+                data-n="2"
+                style="--rot: 0.9deg"
+              >
+                <strong>
+                  AGLOMERACIÓN
+                </strong>
+
+                <span>
+                  Estima ocupación y densidad dentro del encuadre.
+                </span>
+              </div>
+
+              <div
+                class="mini-step"
+                data-n="3"
+                style="--rot: -0.3deg"
+              >
+                <strong>
+                  SONIDO
+                </strong>
+
+                <span>
+                  Lee intensidad y picos del ambiente sin grabarlos.
+                </span>
+              </div>
+
+              <div
+                class="mini-step"
+                data-n="4"
+                style="--rot: 0.6deg"
+              >
+                <strong>
+                  JUEGO
+                </strong>
+
+                <span>
+                  Convierte el entorno real en ritmo,
+                  presión y obstáculos.
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div class="info-row">
+              <article
+                class="note-card safety"
+                style="--rot: -0.8deg"
+              >
+                <strong>
+                  SEGURIDAD
+                </strong>
+
+                Juega detenido en una zona segura.
+                No cruces la entrada mirando la pantalla.
+              </article>
+
+              <article
+                class="note-card privacy"
+                style="--rot: 0.7deg"
+              >
+                <strong>
+                  PRIVACIDAD
+                </strong>
+
+                No hay reconocimiento facial.
+                No se guarda video ni audio y el análisis
+                ocurre en el dispositivo.
+              </article>
+            </div>
+
+            <div class="intro-actions">
+              <button
+                id="start-ar"
+                class="btn-sketch btn-primary"
+                style="--rot: -0.6deg"
+              >
+                ACTIVAR CÁMARA Y EMPEZAR
+              </button>
+
+              <button
+                id="start-demo"
+                class="btn-sketch btn-secondary"
+                style="--rot: 0.8deg"
+              >
+                PROBAR SIN CÁMARA
+              </button>
+            </div>
+
+            <p class="source-note">
+              Proyecto de investigación-creación “Esquivar el R”.
+              Prototipo web experimental.
+            </p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="game"
+      class="screen game-screen hidden"
+      aria-label="Juego Esquivar el R"
+    >
+      <div
+        id="camera-stage"
+        class="camera-stage"
+      >
+        <video
+          id="camera"
+          playsinline
+          muted
+        ></video>
+
+        <canvas id="vision-canvas"></canvas>
+        <canvas id="game-canvas"></canvas>
+        <canvas id="fx-canvas"></canvas>
+
+        <div class="paper-overlay"></div>
+        <div class="edge-scribbles"></div>
+        <div
+          id="collision-flash"
+          class="collision-flash"
+        ></div>
+
+        <div class="hud hud-top">
+          <div class="hud-panel brand-block">
+            <span class="hud-label">
+              ESQUIVAR EL R
+            </span>
+
+            <strong id="game-time">
+              00:45
+            </strong>
+          </div>
+
+          <div class="hud-panel risk-block">
+            <span class="hud-label">
+              PRESIÓN DEL ENTORNO
+            </span>
+
+            <div class="risk-track">
+              <span id="risk-bar"></span>
+            </div>
+
+            <strong id="risk-text">
+              BAJA
+            </strong>
+          </div>
+
+          <div class="mini-actions">
+            <button
+              id="sound-btn"
+              class="mini-hud-btn"
+              style="--rot: -1deg"
+              aria-label="Activar o desactivar sonido"
+            >
+              ♪
+            </button>
+
+            <button
+              id="pause-btn"
+              class="mini-hud-btn"
+              style="--rot: 1deg"
+              aria-label="Pausar"
+            >
+              ‖
+            </button>
+
+            <button
+              id="help-btn"
+              class="mini-hud-btn"
+              style="--rot: -0.5deg"
+              aria-label="Mostrar ayuda"
+            >
+              ?
+            </button>
+          </div>
+        </div>
+
+        <div class="hud sensor-panel">
+          <div
+            class="sensor"
+            style="--rot: -0.7deg"
+          >
+            <span>
+              PERSONAS
+            </span>
+
+            <strong id="people-count">
+              0
+            </strong>
+          </div>
+
+          <div
+            class="sensor"
+            style="--rot: 0.5deg"
+          >
+            <span>
+              MOTOS
+            </span>
+
+            <strong id="moto-count">
+              0
+            </strong>
+          </div>
+
+          <div
+            class="sensor"
+            style="--rot: -0.4deg"
+          >
+            <span>
+              AGLOMERACIÓN
+            </span>
+
+            <strong id="crowd-state">
+              NO
+            </strong>
+          </div>
+
+          <div
+            class="sensor"
+            style="--rot: 0.7deg"
+          >
+            <span>
+              SONIDO
+            </span>
+
+            <strong id="sound-state">
+              BAJO
+            </strong>
+          </div>
+        </div>
+
+        <div
+          id="status-strip"
+          class="status-strip"
+        >
+          INICIANDO SENSORES…
+        </div>
+
+        <div
+          class="route-ui"
+          aria-hidden="true"
+        >
+          <span>
+            CALLE
+          </span>
+
+          <div class="route-line">
+            <i id="route-progress"></i>
+          </div>
+
+          <span>
+            R
+          </span>
+        </div>
+
+        <div class="instruction">
+          desliza o usa los botones para abrirte paso
+        </div>
+
+        <div
+          class="controls"
+          aria-label="Controles del jugador"
+        >
+          <button
+            id="left-btn"
+            aria-label="Mover a la izquierda"
+          >
+            ←
+          </button>
+
+          <button
+            id="center-btn"
+            aria-label="Centrar"
+          >
+            •
+          </button>
+
+          <button
+            id="right-btn"
+            aria-label="Mover a la derecha"
+          >
+            →
+          </button>
+        </div>
+
+        <button
+          id="exit-btn"
+          class="exit-btn"
+          aria-label="Salir del juego"
+        >
+          ×
+        </button>
+
+        <aside
+          id="debug-panel"
+          class="debug-panel hidden"
+          aria-label="Panel de depuración"
+        >
+          <pre id="debug-output"></pre>
+        </aside>
+
+        <div
+          id="pause-card"
+          class="pause-card hidden"
+        >
+          <h3>
+            PAUSA
+          </h3>
+
+          <p>
+            El flujo se detuvo.
+            La entrada real no siempre puede hacerlo.
+          </p>
+
+          <button
+            id="resume-btn"
+            class="btn-sketch btn-primary"
+          >
+            CONTINUAR
+          </button>
+        </div>
+
+        <div
+          id="tutorial-overlay"
+          class="tutorial-overlay hidden"
+        >
+          <div class="tutorial-card">
+            <h3>
+              ¿CÓMO JUGAR?
+            </h3>
+
+            <ol>
+              <li>
+                Observa el lugar desde un punto seguro.
+              </li>
+
+              <li>
+                Usa izquierda y derecha para evitar obstáculos.
+              </li>
+
+              <li>
+                La presión aumenta con personas, motos,
+                aglomeración y sonido.
+              </li>
+
+              <li>
+                No cruces la entrada mirando la pantalla.
+              </li>
+            </ol>
+
+            <button
+              id="close-help"
+              class="btn-sketch btn-primary"
+            >
+              ENTENDIDO
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="result"
+      class="screen result-screen paper-bg hidden"
+      aria-labelledby="result-title"
+    >
+      <div class="result-wrap">
+        <span class="eyebrow">
+          recorrido terminado
+        </span>
+
+        <h2
+          id="result-title"
+          class="result-title"
+        >
+          ¿CUÁNTO TUVISTE QUE
+          <span>
+            ESQUIVAR
+          </span>
+          ?
+        </h2>
+
+        <p
+          id="result-message"
+          class="result-message"
+        ></p>
+
+        <div class="stats-grid">
+          <div style="--rot: -0.4deg">
+            <span>
+              COLISIONES
+            </span>
+
+            <strong id="stat-collisions">
+              0
+            </strong>
+          </div>
+
+          <div style="--rot: 0.5deg">
+            <span>
+              EVASIONES
+            </span>
+
+            <strong id="stat-dodges">
+              0
+            </strong>
+          </div>
+
+          <div style="--rot: -0.7deg">
+            <span>
+              MÁX. PERSONAS
+            </span>
+
+            <strong id="stat-people">
+              0
+            </strong>
+          </div>
+
+          <div style="--rot: 0.4deg">
+            <span>
+              MOTOS DETECTADAS
+            </span>
+
+            <strong id="stat-motos">
+              0
+            </strong>
+          </div>
+
+          <div style="--rot: -0.3deg">
+            <span>
+              PICOS DE SONIDO
+            </span>
+
+            <strong id="stat-sound">
+              0
+            </strong>
+          </div>
+
+          <div style="--rot: 0.6deg">
+            <span>
+              TIEMPO EN AGLOMERACIÓN
+            </span>
+
+            <strong id="stat-crowd">
+              0 s
+            </strong>
+          </div>
+        </div>
+
+        <blockquote>
+          “El problema no es una persona, una moto o un grupo por separado.
+          El problema aparece cuando todos deben negociar el mismo espacio
+          al mismo tiempo.”
+        </blockquote>
+
+        <div class="reflection">
+          <p>
+            En el juego, esquivar es una mecánica.
+            En la Entrada del R, puede convertirse en una conducta normalizada.
+          </p>
+
+          <p>
+            La intervención no mide científicamente el tránsito:
+            transforma la percepción del lugar para hacer visible
+            la cantidad de decisiones pequeñas que exige atravesarlo.
+          </p>
+        </div>
+
+        <div class="result-actions">
+          <button
+            id="play-again"
+            class="btn-sketch btn-primary"
+          >
+            VOLVER A JUGAR
+          </button>
+
+          <button
+            id="back-intro"
+            class="btn-sketch btn-secondary"
+          >
+            VOLVER AL INICIO
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <dialog id="permission-dialog">
+      <h3>
+        Permisos del navegador
+      </h3>
+
+      <p>
+        Para la experiencia situada, permite acceso a cámara y micrófono.
+        Si algún permiso falla, puedes usar el modo demostración.
+      </p>
+
+      <button
+        id="dialog-close"
+        class="btn-sketch btn-secondary"
+      >
+        ENTENDIDO
+      </button>
+    </dialog>
+  </main>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"
+  ></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"
+  ></script>
+
+  <script>
+    const CONFIG = {
+      duration: 45,
+      detectionIntervalMs: 420,
+      personThreshold: 0.5,
+      motoThreshold: 0.45,
+      crowdPeople: 4,
+      crowdAreaRatio: 0.34,
+      baseSpawnMs: 1100,
+      minSpawnMs: 430,
+      soundPeak: 0.16,
+      playerMinX: 0.12,
+      playerMaxX: 0.88,
+      playerStep: 0.13,
+      collisionCooldown: 480,
+      maxParticles: 160,
+      debug: false,
+    };
+
+    const $ = (id) => {
+      return document.getElementById(id);
+    };
+
+    const intro = $("intro");
+    const game = $("game");
+    const result = $("result");
+
+    const video = $("camera");
+    const visionCanvas = $("vision-canvas");
+    const gameCanvas = $("game-canvas");
+    const fxCanvas = $("fx-canvas");
+
+    const visionContext = visionCanvas.getContext("2d");
+    const gameContext = gameCanvas.getContext("2d");
+    const fxContext = fxCanvas.getContext("2d");
+
+    const state = {
+      mode: "ar",
+      stream: null,
+      model: null,
+      running: false,
+      paused: false,
+      soundEnabled: true,
+      startedAt: 0,
+      pausedAt: 0,
+      accumulatedPauseMs: 0,
+      lastSpawn: 0,
+      lastDetect: 0,
+      lastCollisionAt: 0,
+      playerX: 0.5,
+      targetX: 0.5,
+      risk: 0.12,
+      people: 0,
+      motos: 0,
+      crowd: false,
+      personArea: 0,
+      sound: 0,
+      soundPeakActive: false,
+      soundPeaks: 0,
+      audioCtx: null,
+      analyser: null,
+      audioData: null,
+      obstacles: [],
+      particles: [],
+      collisions: 0,
+      dodges: 0,
+      maxPeople: 0,
+      totalMotos: 0,
+      crowdSeconds: 0,
+      lastCrowdTick: 0,
+      detections: [],
+      frameId: null,
+      demoT: 0,
+      score: 0,
+      streak: 0,
+      maxStreak: 0,
+      currentLane: 1,
+      debugVisible: false,
+      tutorialShown: false,
+      screenShake: 0,
+      hitText: [],
+    };
+
+    const COLORS = {
+      ink: "#151515",
+      inkSoft: "#2d2b28",
+      paper: "#efe7d5",
+      paper3: "#f7f1e5",
+      yellow: "#f7c700",
+      blue: "#b8c8d6",
+      red: "#d84232",
+      green: "#6d9c79",
+      skin: "#e7ded0",
+      coat: "#d9d0c0",
+      backpack: "#aebbc6",
+    };
+
+    function setScreen(name) {
+      intro.classList.toggle(
+        "hidden",
+        name !== "intro"
+      );
+
+      game.classList.toggle(
+        "hidden",
+        name !== "game"
+      );
+
+      result.classList.toggle(
+        "hidden",
+        name !== "result"
+      );
+    }
+
+    function getCanvasRect() {
+      return $("camera-stage").getBoundingClientRect();
+    }
+
+    function resizeSingleCanvas(canvas) {
+      const rect = getCanvasRect();
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+      canvas.width = Math.floor(
+        rect.width * dpr
+      );
+
+      canvas.height = Math.floor(
+        rect.height * dpr
+      );
+
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
+      const context = canvas.getContext("2d");
+
+      context.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+    }
+
+    function resizeCanvases() {
+      resizeSingleCanvas(
+        visionCanvas
+      );
+
+      resizeSingleCanvas(
+        gameCanvas
+      );
+
+      resizeSingleCanvas(
+        fxCanvas
+      );
+    }
+
+    window.addEventListener(
+      "resize",
+      resizeCanvases
+    );
+
+    function setStatus(
+      text,
+      tone = "alert"
+    ) {
+      const element = $("status-strip");
+
+      element.textContent = text;
+
+      if (tone === "ok") {
+        element.style.background = "#b8c8d6";
+      } else if (tone === "warn") {
+        element.style.background = "#f7c700";
+      } else if (tone === "danger") {
+        element.style.background = "#d84232";
+      } else {
+        element.style.background = "#efe7d5";
+      }
+
+      element.style.color = "#151515";
+    }
+
+    function clamp(
+      value,
+      min,
+      max
+    ) {
+      return Math.max(
+        min,
+        Math.min(
+          max,
+          value
+        )
+      );
+    }
+
+    function lerp(
+      a,
+      b,
+      t
+    ) {
+      return a + (b - a) * t;
+    }
+
+    function randomRange(
+      min,
+      max
+    ) {
+      return min + Math.random() * (max - min);
+    }
+
+    function randomChoice(array) {
+      return array[
+        Math.floor(
+          Math.random() * array.length
+        )
+      ];
+    }
+
+    function roundRect(
+      context,
+      x,
+      y,
+      width,
+      height,
+      radius
+    ) {
+      const r = Math.min(
+        radius,
+        width / 2,
+        height / 2
+      );
+
+      context.beginPath();
+
+      context.moveTo(
+        x + r,
+        y
+      );
+
+      context.arcTo(
+        x + width,
+        y,
+        x + width,
+        y + height,
+        r
+      );
+
+      context.arcTo(
+        x + width,
+        y + height,
+        x,
+        y + height,
+        r
+      );
+
+      context.arcTo(
+        x,
+        y + height,
+        x,
+        y,
+        r
+      );
+
+      context.arcTo(
+        x,
+        y,
+        x + width,
+        y,
+        r
+      );
+
+      context.closePath();
+    }
+
+    function roughLine(
+      context,
+      x1,
+      y1,
+      x2,
+      y2,
+      width = 2,
+      alpha = 1
+    ) {
+      context.save();
+
+      context.globalAlpha = alpha;
+      context.lineWidth = width;
+      context.strokeStyle = COLORS.ink;
+
+      for (
+        let i = 0;
+        i < 2;
+        i += 1
+      ) {
+        const jitter = 1.4;
+
+        context.beginPath();
+
+        context.moveTo(
+          x1 + (Math.random() - 0.5) * jitter,
+          y1 + (Math.random() - 0.5) * jitter
+        );
+
+        context.lineTo(
+          x2 + (Math.random() - 0.5) * jitter,
+          y2 + (Math.random() - 0.5) * jitter
+        );
+
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function roughPolyline(
+      context,
+      points,
+      width = 2,
+      alpha = 1
+    ) {
+      if (
+        !points ||
+        points.length < 2
+      ) {
+        return;
+      }
+
+      for (
+        let i = 0;
+        i < points.length - 1;
+        i += 1
+      ) {
+        roughLine(
+          context,
+          points[i][0],
+          points[i][1],
+          points[i + 1][0],
+          points[i + 1][1],
+          width,
+          alpha
+        );
+      }
+    }
+
+    function hatch(
+      context,
+      x,
+      y,
+      width,
+      height,
+      spacing = 6,
+      alpha = 0.14
+    ) {
+      context.save();
+
+      context.strokeStyle = COLORS.ink;
+      context.globalAlpha = alpha;
+      context.lineWidth = 1;
+
+      for (
+        let i = -height;
+        i < width;
+        i += spacing
+      ) {
+        context.beginPath();
+
+        context.moveTo(
+          x + i,
+          y + height
+        );
+
+        context.lineTo(
+          x + i + height,
+          y
+        );
+
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function crossHatch(
+      context,
+      x,
+      y,
+      width,
+      height,
+      spacing = 8,
+      alpha = 0.1
+    ) {
+      hatch(
+        context,
+        x,
+        y,
+        width,
+        height,
+        spacing,
+        alpha
+      );
+
+      context.save();
+
+      context.translate(
+        x + width / 2,
+        y + height / 2
+      );
+
+      context.rotate(
+        Math.PI / 2
+      );
+
+      context.translate(
+        -(x + width / 2),
+        -(y + height / 2)
+      );
+
+      hatch(
+        context,
+        x,
+        y,
+        width,
+        height,
+        spacing,
+        alpha * 0.75
+      );
+
+      context.restore();
+    }
+
+    function drawSpeedLines(
+      context,
+      x,
+      y,
+      direction = 1,
+      amount = 4,
+      scale = 1
+    ) {
+      context.save();
+
+      context.strokeStyle = COLORS.yellow;
+      context.lineWidth = 2;
+
+      for (
+        let i = 0;
+        i < amount;
+        i += 1
+      ) {
+        const dy = (i - amount / 2) * 5 * scale;
+        const len = randomRange(
+          8,
+          18
+        ) * scale;
+
+        roughLine(
+          context,
+          x,
+          y + dy,
+          x - direction * len,
+          y + dy + randomRange(-2, 2),
+          2,
+          1
+        );
+      }
+
+      context.restore();
+    }
+
+    function drawExclamationBurst(
+      context,
+      x,
+      y,
+      scale = 1
+    ) {
+      context.save();
+
+      context.strokeStyle = COLORS.yellow;
+      context.lineWidth = 2.6 * scale;
+
+      const rays = [
+        [-18, -8, -28, -15],
+        [-13, -17, -18, -30],
+        [0, -20, 0, -34],
+        [13, -17, 18, -30],
+        [18, -8, 28, -15],
+      ];
+
+      rays.forEach(
+        (ray) => {
+          roughLine(
+            context,
+            x + ray[0] * scale,
+            y + ray[1] * scale,
+            x + ray[2] * scale,
+            y + ray[3] * scale,
+            2.3 * scale,
+            1
+          );
+        }
+      );
+
+      context.restore();
+    }
+
+    function drawShadow(
+      context,
+      x,
+      y,
+      width,
+      height,
+      alpha = 0.15
+    ) {
+      context.save();
+
+      context.fillStyle = `rgba(0,0,0,${alpha})`;
+
+      context.beginPath();
+
+      context.ellipse(
+        x,
+        y,
+        width,
+        height,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      context.restore();
+    }
+
+    function drawHead(
+      context,
+      variant
+    ) {
+      context.fillStyle = COLORS.skin;
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2.3;
+
+      context.beginPath();
+
+      context.ellipse(
+        0,
+        -25,
+        8,
+        10,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      drawHair(
+        context,
+        variant
+      );
+    }
+
+    function drawHair(
+      context,
+      variant
+    ) {
+      context.save();
+
+      context.fillStyle = "#262626";
+      context.strokeStyle = "#151515";
+      context.lineWidth = 1.5;
+
+      if (
+        variant % 4 === 0
+      ) {
+        context.beginPath();
+
+        context.arc(
+          0,
+          -28,
+          8.2,
+          Math.PI,
+          Math.PI * 2
+        );
+
+        context.lineTo(
+          7,
+          -23
+        );
+
+        context.quadraticCurveTo(
+          1,
+          -19,
+          -7,
+          -23
+        );
+
+        context.closePath();
+        context.fill();
+      } else if (
+        variant % 4 === 1
+      ) {
+        context.beginPath();
+
+        context.moveTo(
+          -8,
+          -31
+        );
+
+        context.lineTo(
+          -4,
+          -36
+        );
+
+        context.lineTo(
+          0,
+          -33
+        );
+
+        context.lineTo(
+          4,
+          -37
+        );
+
+        context.lineTo(
+          8,
+          -30
+        );
+
+        context.lineTo(
+          7,
+          -23
+        );
+
+        context.lineTo(
+          -7,
+          -23
+        );
+
+        context.closePath();
+        context.fill();
+      } else if (
+        variant % 4 === 2
+      ) {
+        context.beginPath();
+
+        context.ellipse(
+          -1,
+          -29,
+          9,
+          6,
+          0,
+          Math.PI,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.beginPath();
+
+        context.arc(
+          8,
+          -29,
+          3.5,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      } else {
+        context.beginPath();
+
+        context.moveTo(
+          -8,
+          -29
+        );
+
+        context.quadraticCurveTo(
+          0,
+          -39,
+          9,
+          -27
+        );
+
+        context.lineTo(
+          7,
+          -23
+        );
+
+        context.lineTo(
+          -6,
+          -23
+        );
+
+        context.closePath();
+        context.fill();
+      }
+
+      context.restore();
+    }
+
+    function drawTorso(
+      context,
+      variant
+    ) {
+      const fill =
+        variant % 4 === 0
+          ? "#ddd5c6"
+          : variant % 4 === 1
+            ? "#c2d0da"
+            : variant % 4 === 2
+              ? "#e2dfd8"
+              : "#d7c5b8";
+
+      context.fillStyle = fill;
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2.4;
+
+      context.beginPath();
+
+      context.moveTo(
+        -12,
+        -10
+      );
+
+      context.quadraticCurveTo(
+        -17,
+        5,
+        -12,
+        20
+      );
+
+      context.lineTo(
+        -9,
+        31
+      );
+
+      context.lineTo(
+        9,
+        31
+      );
+
+      context.lineTo(
+        12,
+        19
+      );
+
+      context.quadraticCurveTo(
+        16,
+        4,
+        11,
+        -10
+      );
+
+      context.quadraticCurveTo(
+        0,
+        -16,
+        -12,
+        -10
+      );
+
+      context.closePath();
+      context.fill();
+      context.stroke();
+
+      hatch(
+        context,
+        -13,
+        -10,
+        26,
+        42,
+        5,
+        0.12
+      );
+    }
+
+    function drawBackpack(
+      context,
+      variant
+    ) {
+      context.save();
+
+      context.fillStyle =
+        variant % 3 === 0
+          ? "#aebbc6"
+          : variant % 3 === 1
+            ? "#b9a98f"
+            : "#9eabb0";
+
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 1.8;
+
+      if (
+        variant % 2 === 0
+      ) {
+        roundRect(
+          context,
+          5,
+          -6,
+          11,
+          21,
+          3
+        );
+
+        context.fill();
+        context.stroke();
+
+        roughLine(
+          context,
+          8,
+          -3,
+          13,
+          12,
+          1.2,
+          0.8
+        );
+      } else {
+        roundRect(
+          context,
+          -16,
+          -4,
+          8,
+          20,
+          2
+        );
+
+        context.fill();
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function drawPersonArms(
+      context,
+      urgent
+    ) {
+      context.lineWidth = 3.4;
+
+      if (
+        urgent
+      ) {
+        roughLine(
+          context,
+          -10,
+          0,
+          -21,
+          11,
+          3.2,
+          1
+        );
+
+        roughLine(
+          context,
+          10,
+          1,
+          19,
+          -8,
+          3.2,
+          1
+        );
+      } else {
+        roughLine(
+          context,
+          -10,
+          0,
+          -16,
+          17,
+          3.2,
+          1
+        );
+
+        roughLine(
+          context,
+          10,
+          0,
+          16,
+          17,
+          3.2,
+          1
+        );
+      }
+    }
+
+    function drawPersonLegs(
+      context,
+      gait
+    ) {
+      context.lineWidth = 4;
+
+      const shift =
+        Math.sin(gait) * 4;
+
+      roughLine(
+        context,
+        -5,
+        30,
+        -10 - shift,
+        49,
+        3.7,
+        1
+      );
+
+      roughLine(
+        context,
+        6,
+        30,
+        12 + shift,
+        48,
+        3.7,
+        1
+      );
+
+      roughLine(
+        context,
+        -13 - shift,
+        49,
+        -7 - shift,
+        49,
+        2.7,
+        1
+      );
+
+      roughLine(
+        context,
+        9 + shift,
+        48,
+        15 + shift,
+        48,
+        2.7,
+        1
+      );
+    }
+
+    function drawDetailedPerson(
+      context,
+      x,
+      y,
+      scale,
+      variant = 0,
+      urgent = false,
+      gait = 0
+    ) {
+      context.save();
+
+      context.translate(
+        x,
+        y
+      );
+
+      context.scale(
+        scale,
+        scale
+      );
+
+      context.lineCap = "round";
+      context.lineJoin = "round";
+
+      if (
+        urgent
+      ) {
+        context.rotate(
+          -0.08
+        );
+      }
+
+      drawShadow(
+        context,
+        0,
+        42,
+        19,
+        5,
+        0.14
+      );
+
+      drawTorso(
+        context,
+        variant
+      );
+
+      drawHead(
+        context,
+        variant
+      );
+
+      drawBackpack(
+        context,
+        variant
+      );
+
+      drawPersonArms(
+        context,
+        urgent
+      );
+
+      drawPersonLegs(
+        context,
+        gait
+      );
+
+      if (
+        urgent
+      ) {
+        drawSpeedLines(
+          context,
+          -22,
+          -2,
+          1,
+          3,
+          0.7
+        );
+      }
+
+      context.restore();
+    }
+
+    function drawMotoWheel(
+      context,
+      x,
+      y,
+      radius
+    ) {
+      context.fillStyle = "#eee8dc";
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2.4;
+
+      context.beginPath();
+
+      context.arc(
+        x,
+        y,
+        radius,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      context.beginPath();
+
+      context.arc(
+        x,
+        y,
+        radius * 0.4,
+        0,
+        Math.PI * 2
+      );
+
+      context.stroke();
+
+      for (
+        let angle = 0;
+        angle < Math.PI * 2;
+        angle += Math.PI / 6
+      ) {
+        roughLine(
+          context,
+          x,
+          y,
+          x + Math.cos(angle) * radius * 0.8,
+          y + Math.sin(angle) * radius * 0.8,
+          0.9,
+          0.65
+        );
+      }
+    }
+
+    function drawMotoFrame(
+      context
+    ) {
+      context.fillStyle = "#c1ccd5";
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2.4;
+
+      context.beginPath();
+
+      context.moveTo(
+        -18,
+        18
+      );
+
+      context.lineTo(
+        -3,
+        4
+      );
+
+      context.lineTo(
+        12,
+        18
+      );
+
+      context.lineTo(
+        -7,
+        18
+      );
+
+      context.closePath();
+      context.fill();
+      context.stroke();
+
+      roughLine(
+        context,
+        -3,
+        4,
+        20,
+        5,
+        2.2,
+        1
+      );
+
+      roughLine(
+        context,
+        20,
+        5,
+        23,
+        16,
+        2.2,
+        1
+      );
+
+      roughLine(
+        context,
+        -3,
+        4,
+        -10,
+        -5,
+        2.2,
+        1
+      );
+
+      roughLine(
+        context,
+        -10,
+        -5,
+        -18,
+        18,
+        2.2,
+        1
+      );
+    }
+
+    function drawMotoTank(
+      context
+    ) {
+      context.fillStyle = COLORS.yellow;
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2;
+
+      context.beginPath();
+
+      context.ellipse(
+        2,
+        3,
+        10,
+        6,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      hatch(
+        context,
+        -7,
+        -3,
+        18,
+        12,
+        4,
+        0.12
+      );
+    }
+
+    function drawMotoRider(
+      context,
+      variant
+    ) {
+      context.fillStyle =
+        variant % 2 === 0
+          ? "#ded6c8"
+          : "#b9c6cf";
+
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 2.2;
+
+      context.beginPath();
+
+      context.moveTo(
+        -6,
+        -8
+      );
+
+      context.quadraticCurveTo(
+        1,
+        -15,
+        8,
+        -6
+      );
+
+      context.lineTo(
+        12,
+        4
+      );
+
+      context.lineTo(
+        -1,
+        7
+      );
+
+      context.closePath();
+      context.fill();
+      context.stroke();
+
+      context.fillStyle = "#2b2b2b";
+
+      context.beginPath();
+
+      context.arc(
+        2,
+        -20,
+        7,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      context.fillStyle = "#b8c8d6";
+      context.strokeStyle = "#b8c8d6";
+      context.lineWidth = 1.8;
+
+      context.beginPath();
+
+      context.arc(
+        4,
+        -20,
+        4.4,
+        -0.8,
+        0.7
+      );
+
+      context.stroke();
+
+      roughLine(
+        context,
+        7,
+        -6,
+        18,
+        0,
+        3,
+        1
+      );
+
+      roughLine(
+        context,
+        -2,
+        4,
+        -8,
+        14,
+        3.4,
+        1
+      );
+
+      roughLine(
+        context,
+        8,
+        4,
+        14,
+        15,
+        3.4,
+        1
+      );
+    }
+
+    function drawDetailedMoto(
+      context,
+      x,
+      y,
+      scale,
+      direction = 1,
+      variant = 0
+    ) {
+      context.save();
+
+      context.translate(
+        x,
+        y
+      );
+
+      context.scale(
+        scale * direction,
+        scale
+      );
+
+      context.lineCap = "round";
+      context.lineJoin = "round";
+
+      drawShadow(
+        context,
+        0,
+        28,
+        28,
+        5,
+        0.14
+      );
+
+      drawMotoWheel(
+        context,
+        -20,
+        20,
+        10
+      );
+
+      drawMotoWheel(
+        context,
+        20,
+        20,
+        10
+      );
+
+      drawMotoFrame(
+        context
+      );
+
+      drawMotoTank(
+        context
+      );
+
+      drawMotoRider(
+        context,
+        variant
+      );
+
+      roughLine(
+        context,
+        16,
+        -1,
+        24,
+        -2,
+        1.8,
+        1
+      );
+
+      context.fillStyle = "#f5ebd8";
+      context.strokeStyle = COLORS.ink;
+      context.lineWidth = 1.5;
+
+      context.beginPath();
+
+      context.arc(
+        23,
+        2,
+        3.5,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      drawSpeedLines(
+        context,
+        -28,
+        2,
+        1,
+        4,
+        0.8
+      );
+
+      context.restore();
+    }
+
+    function drawDetailedGroup(
+      context,
+      x,
+      y,
+      scale,
+      variant,
+      gait
+    ) {
+      drawDetailedPerson(
+        context,
+        x - 17 * scale,
+        y,
+        scale * 0.76,
+        variant,
+        false,
+        gait
+      );
+
+      drawDetailedPerson(
+        context,
+        x,
+        y - 3,
+        scale * 0.82,
+        variant + 1,
+        false,
+        gait + 1
+      );
+
+      drawDetailedPerson(
+        context,
+        x + 17 * scale,
+        y,
+        scale * 0.76,
+        variant + 2,
+        false,
+        gait + 2
+      );
+
+      drawExclamationBurst(
+        context,
+        x,
+        y - 38 * scale,
+        scale * 0.7
+      );
+    }
+
+    function createObstacleType() {
+      const weightedTypes = [
+        "person",
+        "person",
+        "person",
+        "person",
+        "moto",
+        "moto",
+        "group",
+      ];
+
+      if (
+        state.crowd
+      ) {
+        weightedTypes.push(
+          "group",
+          "group",
+          "person"
+        );
+      }
+
+      if (
+        state.motos >= 2
+      ) {
+        weightedTypes.push(
+          "moto"
+        );
+      }
+
+      return randomChoice(
+        weightedTypes
+      );
+    }
+
+    function spawnObstacle() {
+      const type =
+        createObstacleType();
+
+      const x =
+        randomRange(
+          0.12,
+          0.88
+        );
+
+      const speed =
+        randomRange(
+          0.23,
+          0.35
+        ) +
+        state.risk * 0.16;
+
+      const obstacle = {
+        id:
+          `${Date.now()}-${Math.random()}`,
+        type,
+        x,
+        y: -0.12,
+        speed,
+        variant:
+          Math.floor(
+            Math.random() * 8
+          ),
+        direction:
+          Math.random() > 0.5
+            ? 1
+            : -1,
+        hit: false,
+        counted: false,
+        gait:
+          Math.random() * Math.PI * 2,
+        sway:
+          randomRange(
+            -0.012,
+            0.012
+          ),
+      };
+
+      state.obstacles.push(
+        obstacle
+      );
+    }
+
+    function obstacleCollision(
+      obstacle,
+      playerX
+    ) {
+      const dx =
+        Math.abs(
+          obstacle.x - playerX
+        );
+
+      let tolerance =
+        0.065;
+
+      if (
+        obstacle.type === "group"
+      ) {
+        tolerance =
+          0.13;
+      }
+
+      if (
+        obstacle.type === "moto"
+      ) {
+        tolerance =
+          0.085;
+      }
+
+      return (
+        dx < tolerance &&
+        obstacle.y > 0.68 &&
+        obstacle.y < 0.92
+      );
+    }
+
+    function drawObstacle(
+      context,
+      obstacle,
+      width,
+      height
+    ) {
+      const x =
+        obstacle.x * width;
+
+      const y =
+        obstacle.y * height;
+
+      const perspective =
+        0.52 + obstacle.y * 0.9;
+
+      if (
+        obstacle.type === "person"
+      ) {
+        drawDetailedPerson(
+          context,
+          x,
+          y,
+          perspective * 0.9,
+          obstacle.variant,
+          true,
+          obstacle.gait
+        );
+      } else if (
+        obstacle.type === "moto"
+      ) {
+        drawDetailedMoto(
+          context,
+          x,
+          y,
+          perspective * 0.82,
+          obstacle.direction,
+          obstacle.variant
+        );
+      } else {
+        drawDetailedGroup(
+          context,
+          x,
+          y,
+          perspective,
+          obstacle.variant,
+          obstacle.gait
+        );
+      }
+    }
+
+    function drawPlayerLegs(
+      context,
+      time
+    ) {
+      const sway =
+        Math.sin(time * 0.008) * 4;
+
+      roughLine(
+        context,
+        -8,
+        28,
+        -13 - sway,
+        55,
+        4.2,
+        1
+      );
+
+      roughLine(
+        context,
+        8,
+        28,
+        14 + sway,
+        55,
+        4.2,
+        1
+      );
+
+      roughLine(
+        context,
+        -17 - sway,
+        55,
+        -9 - sway,
+        55,
+        3,
+        1
+      );
+
+      roughLine(
+        context,
+        11 + sway,
+        55,
+        18 + sway,
+        55,
+        3,
+        1
+      );
+    }
+
+    function drawPlayerBackpack(
+      context
+    ) {
+      context.fillStyle =
+        COLORS.backpack;
+
+      context.strokeStyle =
+        COLORS.ink;
+
+      context.lineWidth =
+        2.8;
+
+      roundRect(
+        context,
+        -15,
+        -11,
+        30,
+        34,
+        6
+      );
+
+      context.fill();
+      context.stroke();
+
+      roughLine(
+        context,
+        -10,
+        -3,
+        -10,
+        15,
+        1.4,
+        0.8
+      );
+
+      roughLine(
+        context,
+        10,
+        -3,
+        10,
+        15,
+        1.4,
+        0.8
+      );
+
+      roughLine(
+        context,
+        -12,
+        7,
+        12,
+        7,
+        1.2,
+        0.7
+      );
+
+      context.beginPath();
+
+      context.arc(
+        0,
+        13,
+        2,
+        0,
+        Math.PI * 2
+      );
+
+      context.stroke();
+
+      hatch(
+        context,
+        -14,
+        -9,
+        28,
+        31,
+        5,
+        0.08
+      );
+    }
+
+    function drawPlayerHair(
+      context
+    ) {
+      context.fillStyle =
+        "#222222";
+
+      context.beginPath();
+
+      context.moveTo(
+        -10,
+        -34
+      );
+
+      context.quadraticCurveTo(
+        -7,
+        -47,
+        0,
+        -44
+      );
+
+      context.quadraticCurveTo(
+        8,
+        -47,
+        11,
+        -34
+      );
+
+      context.lineTo(
+        6,
+        -29
+      );
+
+      context.lineTo(
+        2,
+        -35
+      );
+
+      context.lineTo(
+        -2,
+        -30
+      );
+
+      context.lineTo(
+        -6,
+        -36
+      );
+
+      context.closePath();
+
+      context.fill();
+    }
+
+    function drawPlayer(
+      context,
+      width,
+      height,
+      time
+    ) {
+      const x =
+        state.playerX * width;
+
+      const y =
+        height * 0.82;
+
+      context.save();
+
+      context.translate(
+        x,
+        y
+      );
+
+      context.scale(
+        1.12,
+        1.12
+      );
+
+      context.lineCap =
+        "round";
+
+      context.lineJoin =
+        "round";
+
+      drawShadow(
+        context,
+        0,
+        53,
+        27,
+        7,
+        0.18
+      );
+
+      drawPlayerLegs(
+        context,
+        time
+      );
+
+      context.fillStyle =
+        COLORS.coat;
+
+      context.strokeStyle =
+        COLORS.ink;
+
+      context.lineWidth =
+        2.8;
+
+      context.beginPath();
+
+      context.moveTo(
+        -18,
+        -15
+      );
+
+      context.quadraticCurveTo(
+        -20,
+        5,
+        -14,
+        30
+      );
+
+      context.lineTo(
+        14,
+        30
+      );
+
+      context.quadraticCurveTo(
+        20,
+        4,
+        18,
+        -15
+      );
+
+      context.quadraticCurveTo(
+        0,
+        -24,
+        -18,
+        -15
+      );
+
+      context.closePath();
+
+      context.fill();
+      context.stroke();
+
+      hatch(
+        context,
+        -18,
+        -16,
+        36,
+        46,
+        5,
+        0.15
+      );
+
+      context.fillStyle =
+        COLORS.skin;
+
+      context.beginPath();
+
+      context.ellipse(
+        0,
+        -33,
+        10,
+        12,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.stroke();
+
+      drawPlayerHair(
+        context
+      );
+
+      drawPlayerBackpack(
+        context
+      );
+
+      roughLine(
+        context,
+        -12,
+        -14,
+        -7,
+        6,
+        2.3,
+        1
+      );
+
+      roughLine(
+        context,
+        12,
+        -14,
+        7,
+        6,
+        2.3,
+        1
+      );
+
+      roughLine(
+        context,
+        -15,
+        -6,
+        -27,
+        20,
+        4.4,
+        1
+      );
+
+      roughLine(
+        context,
+        15,
+        -6,
+        27,
+        20,
+        4.4,
+        1
+      );
+
+      context.strokeStyle =
+        COLORS.yellow;
+
+      context.lineWidth =
+        3;
+
+      roughLine(
+        context,
+        -31,
+        -20,
+        -38,
+        -27,
+        2.5,
+        1
+      );
+
+      roughLine(
+        context,
+        30,
+        -21,
+        37,
+        -28,
+        2.5,
+        1
+      );
+
+      context.restore();
+    }
+
+    function drawPerspectiveGuide(
+      context,
+      width,
+      height
+    ) {
+      context.save();
+
+      context.globalAlpha =
+        0.23;
+
+      context.strokeStyle =
+        COLORS.ink;
+
+      context.lineWidth =
+        1;
+
+      const vanishingX =
+        width * 0.5;
+
+      const vanishingY =
+        height * 0.34;
+
+      for (
+        let x = -width * 0.1;
+        x <= width * 1.1;
+        x += width * 0.11
+      ) {
+        context.beginPath();
+
+        context.moveTo(
+          vanishingX,
+          vanishingY
+        );
+
+        context.lineTo(
+          x,
+          height
+        );
+
+        context.stroke();
+      }
+
+      for (
+        let y = vanishingY + 40;
+        y < height;
+        y += 54
+      ) {
+        const t =
+          (y - vanishingY) /
+          (height - vanishingY);
+
+        const leftX =
+          vanishingX +
+          (0 - vanishingX) * t;
+
+        const rightX =
+          vanishingX +
+          (width - vanishingX) * t;
+
+        context.beginPath();
+
+        context.moveTo(
+          leftX,
+          y
+        );
+
+        context.lineTo(
+          rightX,
+          y
+        );
+
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function drawRoute(
+      context,
+      width,
+      height
+    ) {
+      context.save();
+
+      context.strokeStyle =
+        COLORS.yellow;
+
+      context.lineWidth =
+        7;
+
+      context.setLineDash(
+        [22, 16]
+      );
+
+      context.beginPath();
+
+      context.moveTo(
+        width * 0.5,
+        height * 0.92
+      );
+
+      context.bezierCurveTo(
+        width * 0.44,
+        height * 0.7,
+        width * 0.58,
+        height * 0.55,
+        width * 0.5,
+        height * 0.37
+      );
+
+      context.stroke();
+
+      context.restore();
+    }
+
+    function drawLaneMarks(
+      context,
+      width,
+      height
+    ) {
+      context.save();
+
+      context.globalAlpha =
+        0.12;
+
+      context.strokeStyle =
+        COLORS.ink;
+
+      context.lineWidth =
+        1;
+
+      [0.33, 0.66].forEach(
+        (fraction) => {
+          context.beginPath();
+
+          context.moveTo(
+            width * 0.5,
+            height * 0.36
+          );
+
+          context.lineTo(
+            width * fraction,
+            height
+          );
+
+          context.stroke();
+        }
+      );
+
+      context.restore();
+    }
+
+    function emitCollisionParticles(
+      x,
+      y
+    ) {
+      const count =
+        18;
+
+      for (
+        let i = 0;
+        i < count;
+        i += 1
+      ) {
+        if (
+          state.particles.length >=
+          CONFIG.maxParticles
+        ) {
+          break;
+        }
+
+        state.particles.push(
+          {
+            x,
+            y,
+            vx:
+              randomRange(
+                -3,
+                3
+              ),
+            vy:
+              randomRange(
+                -5,
+                -1
+              ),
+            life:
+              randomRange(
+                18,
+                34
+              ),
+            size:
+              randomRange(
+                2,
+                6
+              ),
+            color:
+              randomChoice(
+                [
+                  COLORS.red,
+                  COLORS.yellow,
+                  COLORS.ink,
+                ]
+              ),
+          }
+        );
+      }
+    }
+
+    function updateParticles() {
+      state.particles.forEach(
+        (particle) => {
+          particle.x +=
+            particle.vx;
+
+          particle.y +=
+            particle.vy;
+
+          particle.vy +=
+            0.22;
+
+          particle.life -=
+            1;
+        }
+      );
+
+      state.particles =
+        state.particles.filter(
+          (particle) => {
+            return particle.life > 0;
+          }
+        );
+    }
+
+    function drawParticles(
+      context
+    ) {
+      state.particles.forEach(
+        (particle) => {
+          context.save();
+
+          context.globalAlpha =
+            clamp(
+              particle.life / 30,
+              0,
+              1
+            );
+
+          context.fillStyle =
+            particle.color;
+
+          context.fillRect(
+            particle.x,
+            particle.y,
+            particle.size,
+            particle.size
+          );
+
+          context.restore();
+        }
+      );
+    }
+
+    function pushHitText(
+      text,
+      x,
+      y,
+      color
+    ) {
+      state.hitText.push(
+        {
+          text,
+          x,
+          y,
+          color,
+          life: 46,
+        }
+      );
+    }
+
+    function updateHitText() {
+      state.hitText.forEach(
+        (item) => {
+          item.y -=
+            0.6;
+
+          item.life -=
+            1;
+        }
+      );
+
+      state.hitText =
+        state.hitText.filter(
+          (item) => {
+            return item.life > 0;
+          }
+        );
+    }
+
+    function drawHitText(
+      context
+    ) {
+      state.hitText.forEach(
+        (item) => {
+          context.save();
+
+          context.globalAlpha =
+            clamp(
+              item.life / 46,
+              0,
+              1
+            );
+
+          context.fillStyle =
+            item.color;
+
+          context.strokeStyle =
+            COLORS.ink;
+
+          context.lineWidth =
+            3;
+
+          context.font =
+            '28px "Permanent Marker", cursive';
+
+          context.strokeText(
+            item.text,
+            item.x,
+            item.y
+          );
+
+          context.fillText(
+            item.text,
+            item.x,
+            item.y
+          );
+
+          context.restore();
+        }
+      );
+    }
+
+    function triggerCollisionFeedback(
+      x,
+      y
+    ) {
+      const flash =
+        $("collision-flash");
+
+      flash.classList.add(
+        "active"
+      );
+
+      setTimeout(
+        () => {
+          flash.classList.remove(
+            "active"
+          );
+        },
+        120
+      );
+
+      state.screenShake =
+        8;
+
+      emitCollisionParticles(
+        x,
+        y
+      );
+
+      pushHitText(
+        "¡CHOQUE!",
+        x - 45,
+        y - 30,
+        COLORS.red
+      );
+
+      if (
+        navigator.vibrate
+      ) {
+        navigator.vibrate(
+          80
+        );
+      }
+    }
+
+    function triggerDodgeFeedback(
+      x,
+      y
+    ) {
+      pushHitText(
+        "+ esquivado",
+        x - 45,
+        y - 20,
+        COLORS.yellow
+      );
+    }
+
+    function getRiskContribution() {
+      const peoplePart =
+        Math.min(
+          state.people / 8,
+          0.5
+        );
+
+      const motoPart =
+        Math.min(
+          state.motos / 4,
+          0.25
+        );
+
+      const crowdPart =
+        state.crowd
+          ? 0.18
+          : 0;
+
+      const soundPart =
+        state.soundEnabled
+          ? Math.min(
+              state.sound * 1.2,
+              0.22
+            )
+          : 0;
+
+      return {
+        peoplePart,
+        motoPart,
+        crowdPart,
+        soundPart,
+      };
+    }
+
+    function updateRisk() {
+      const parts =
+        getRiskContribution();
+
+      let risk =
+        0.12;
+
+      risk +=
+        parts.peoplePart;
+
+      risk +=
+        parts.motoPart;
+
+      risk +=
+        parts.crowdPart;
+
+      risk +=
+        parts.soundPart;
+
+      state.risk =
+        clamp(
+          risk,
+          0.08,
+          1
+        );
+
+      const percentage =
+        Math.round(
+          state.risk * 100
+        );
+
+      $("risk-bar").style.width =
+        `${percentage}%`;
+
+      if (
+        percentage > 72
+      ) {
+        $("risk-text").textContent =
+          "ALTA";
+
+        $("risk-bar").style.background =
+          COLORS.red;
+      } else if (
+        percentage > 42
+      ) {
+        $("risk-text").textContent =
+          "MEDIA";
+
+        $("risk-bar").style.background =
+          COLORS.yellow;
+      } else {
+        $("risk-text").textContent =
+          "BAJA";
+
+        $("risk-bar").style.background =
+          COLORS.green;
+      }
+    }
+
+    function updateHUD() {
+      $("people-count").textContent =
+        state.people;
+
+      $("moto-count").textContent =
+        state.motos;
+
+      $("crowd-state").textContent =
+        state.crowd
+          ? "ALTA"
+          : "NO";
+
+      if (
+        !state.soundEnabled
+      ) {
+        $("sound-state").textContent =
+          "OFF";
+      } else if (
+        state.sound > 0.18
+      ) {
+        $("sound-state").textContent =
+          "ALTO";
+      } else if (
+        state.sound > 0.08
+      ) {
+        $("sound-state").textContent =
+          "MEDIO";
+      } else {
+        $("sound-state").textContent =
+          "BAJO";
+      }
+
+      updateRisk();
+    }
+
+    function updateScore() {
+      const base =
+        state.dodges * 25;
+
+      const penalty =
+        state.collisions * 40;
+
+      const streakBonus =
+        state.maxStreak * 10;
+
+      state.score =
+        Math.max(
+          0,
+          base -
+          penalty +
+          streakBonus
+        );
+    }
+
+    async function setupAudio(
+      stream
+    ) {
+      try {
+        state.audioCtx =
+          new (
+            window.AudioContext ||
+            window.webkitAudioContext
+          )();
+
+        const source =
+          state.audioCtx.createMediaStreamSource(
+            stream
+          );
+
+        state.analyser =
+          state.audioCtx.createAnalyser();
+
+        state.analyser.fftSize =
+          512;
+
+        state.audioData =
+          new Uint8Array(
+            state.analyser.fftSize
+          );
+
+        source.connect(
+          state.analyser
+        );
+      } catch (error) {
+        state.analyser =
+          null;
+      }
+    }
+
+    function readSound() {
+      if (
+        !state.soundEnabled
+      ) {
+        state.sound = 0;
+        return;
+      }
+
+      if (
+        !state.analyser ||
+        !state.audioData
+      ) {
+        return;
+      }
+
+      state.analyser.getByteTimeDomainData(
+        state.audioData
+      );
+
+      let sum =
+        0;
+
+      for (
+        const value of state.audioData
+      ) {
+        const normalized =
+          (value - 128) / 128;
+
+        sum +=
+          normalized *
+          normalized;
+      }
+
+      state.sound =
+        Math.sqrt(
+          sum /
+          state.audioData.length
+        );
+
+      const peak =
+        state.sound >
+        CONFIG.soundPeak;
+
+      if (
+        peak &&
+        !state.soundPeakActive
+      ) {
+        state.soundPeaks +=
+          1;
+      }
+
+      state.soundPeakActive =
+        peak;
+    }
+
+    async function detectScene(
+      now
+    ) {
+      if (
+        state.mode !== "ar"
+      ) {
+        return;
+      }
+
+      if (
+        !state.model
+      ) {
+        return;
+      }
+
+      if (
+        video.readyState < 2
+      ) {
+        return;
+      }
+
+      if (
+        now -
+        state.lastDetect <
+        CONFIG.detectionIntervalMs
+      ) {
+        return;
+      }
+
+      state.lastDetect =
+        now;
+
+      try {
+        const predictions =
+          await state.model.detect(
+            video
+          );
+
+        state.detections =
+          predictions;
+
+        let people =
+          0;
+
+        let motos =
+          0;
+
+        let area =
+          0;
+
+        const videoWidth =
+          video.videoWidth ||
+          1;
+
+        const videoHeight =
+          video.videoHeight ||
+          1;
+
+        predictions.forEach(
+          (prediction) => {
+            const isPerson =
+              prediction.class === "person" &&
+              prediction.score >=
+              CONFIG.personThreshold;
+
+            const isMoto =
+              (
+                prediction.class === "motorcycle" ||
+                prediction.class === "bicycle"
+              ) &&
+              prediction.score >=
+              CONFIG.motoThreshold;
+
+            if (
+              isPerson
+            ) {
+              people +=
+                1;
+
+              area +=
+                (
+                  prediction.bbox[2] *
+                  prediction.bbox[3]
+                ) /
+                (
+                  videoWidth *
+                  videoHeight
+                );
+            }
+
+            if (
+              isMoto
+            ) {
+              motos +=
+                1;
+            }
+          }
+        );
+
+        state.people =
+          people;
+
+        state.motos =
+          motos;
+
+        state.personArea =
+          area;
+
+        state.crowd =
+          people >=
+          CONFIG.crowdPeople ||
+          area >=
+          CONFIG.crowdAreaRatio;
+
+        state.maxPeople =
+          Math.max(
+            state.maxPeople,
+            people
+          );
+
+        state.totalMotos =
+          Math.max(
+            state.totalMotos,
+            motos
+          );
+      } catch (error) {
+        setStatus(
+          "LECTURA VISUAL INESTABLE · CONTINÚA CON PRECAUCIÓN",
+          "warn"
+        );
+      }
+    }
+
+    function drawDetectionLabel(
+      context,
+      label,
+      x,
+      y
+    ) {
+      context.save();
+
+      context.fillStyle =
+        "rgba(247,199,0,.88)";
+
+      context.strokeStyle =
+        COLORS.ink;
+
+      context.lineWidth =
+        1.2;
+
+      context.font =
+        '700 14px "Caveat", cursive';
+
+      const width =
+        context.measureText(
+          label
+        ).width +
+        10;
+
+      context.fillRect(
+        x,
+        y - 18,
+        width,
+        18
+      );
+
+      context.strokeRect(
+        x,
+        y - 18,
+        width,
+        18
+      );
+
+      context.fillStyle =
+        COLORS.ink;
+
+      context.fillText(
+        label,
+        x + 4,
+        y - 4
+      );
+
+      context.restore();
+    }
+
+    function drawDetectionBox(
+      context,
+      x,
+      y,
+      width,
+      height,
+      label
+    ) {
+      context.save();
+
+      context.strokeStyle =
+        COLORS.yellow;
+
+      context.lineWidth =
+        2;
+
+      context.setLineDash(
+        [7, 5]
+      );
+
+      context.strokeRect(
+        x,
+        y,
+        width,
+        height
+      );
+
+      context.setLineDash(
+        []
+      );
+
+      drawDetectionLabel(
+        context,
+        label,
+        x,
+        Math.max(
+          20,
+          y
+        )
+      );
+
+      context.restore();
+    }
+
+    function drawDetections() {
+      const rect =
+        visionCanvas.getBoundingClientRect();
+
+      visionContext.clearRect(
+        0,
+        0,
+        rect.width,
+        rect.height
+      );
+
+      if (
+        state.mode !== "ar"
+      ) {
+        return;
+      }
+
+      const scaleX =
+        rect.width /
+        (
+          video.videoWidth ||
+          rect.width
+        );
+
+      const scaleY =
+        rect.height /
+        (
+          video.videoHeight ||
+          rect.height
+        );
+
+      state.detections.forEach(
+        (prediction) => {
+          const isPerson =
+            prediction.class === "person" &&
+            prediction.score >=
+            CONFIG.personThreshold;
+
+          const isMoto =
+            (
+              prediction.class === "motorcycle" ||
+              prediction.class === "bicycle"
+            ) &&
+            prediction.score >=
+            CONFIG.motoThreshold;
+
+          if (
+            !isPerson &&
+            !isMoto
+          ) {
+            return;
+          }
+
+          const [
+            x,
+            y,
+            width,
+            height,
+          ] =
+            prediction.bbox;
+
+          drawDetectionBox(
+            visionContext,
+            x * scaleX,
+            y * scaleY,
+            width * scaleX,
+            height * scaleY,
+            isPerson
+              ? "persona"
+              : "moto"
+          );
+        }
+      );
+    }
+
+    function demoSensors() {
+      state.demoT +=
+        0.018;
+
+      state.people =
+        Math.max(
+          0,
+          Math.round(
+            3.4 +
+            Math.sin(
+              state.demoT * 1.4
+            ) * 2.1 +
+            Math.sin(
+              state.demoT * 0.45
+            )
+          )
+        );
+
+      state.motos =
+        Math.max(
+          0,
+          Math.round(
+            1.2 +
+            Math.sin(
+              state.demoT * 0.8
+            ) * 1.1
+          )
+        );
+
+      state.sound =
+        state.soundEnabled
+          ? 0.07 +
+            (
+              Math.sin(
+                state.demoT * 2.3
+              ) +
+              1
+            ) *
+            0.03
+          : 0;
+
+      state.crowd =
+        state.people >=
+        5;
+
+      state.maxPeople =
+        Math.max(
+          state.maxPeople,
+          state.people
+        );
+
+      state.totalMotos =
+        Math.max(
+          state.totalMotos,
+          state.motos
+        );
+    }
+
+    function resetState() {
+      state.running =
+        true;
+
+      state.paused =
+        false;
+
+      state.startedAt =
+        performance.now();
+
+      state.pausedAt =
+        0;
+
+      state.accumulatedPauseMs =
+        0;
+
+      state.lastSpawn =
+        0;
+
+      state.lastDetect =
+        0;
+
+      state.lastCollisionAt =
+        0;
+
+      state.playerX =
+        0.5;
+
+      state.targetX =
+        0.5;
+
+      state.obstacles =
+        [];
+
+      state.particles =
+        [];
+
+      state.hitText =
+        [];
+
+      state.collisions =
+        0;
+
+      state.dodges =
+        0;
+
+      state.maxPeople =
+        0;
+
+      state.totalMotos =
+        0;
+
+      state.crowdSeconds =
+        0;
+
+      state.lastCrowdTick =
+        performance.now();
+
+      state.soundPeaks =
+        0;
+
+      state.demoT =
+        0;
+
+      state.score =
+        0;
+
+      state.streak =
+        0;
+
+      state.maxStreak =
+        0;
+
+      state.screenShake =
+        0;
+
+      $("pause-card").classList.add(
+        "hidden"
+      );
+
+      $("tutorial-overlay").classList.add(
+        "hidden"
+      );
+    }
+
+    function calculateElapsed(
+      now
+    ) {
+      return (
+        now -
+        state.startedAt -
+        state.accumulatedPauseMs
+      ) /
+      1000;
+    }
+
+    function updateTimer(
+      now
+    ) {
+      const elapsed =
+        calculateElapsed(
+          now
+        );
+
+      const remaining =
+        Math.max(
+          0,
+          CONFIG.duration -
+          elapsed
+        );
+
+      $("game-time").textContent =
+        `00:${String(
+          Math.ceil(
+            remaining
+          )
+        ).padStart(
+          2,
+          "0"
+        )}`;
+
+      $("route-progress").style.height =
+        `${Math.min(
+          100,
+          elapsed /
+          CONFIG.duration *
+          100
+        )}%`;
+
+      return {
+        elapsed,
+        remaining,
+      };
+    }
+
+    function updateCrowdTime(
+      now
+    ) {
+      if (
+        now -
+        state.lastCrowdTick <=
+        1000
+      ) {
+        return;
+      }
+
+      if (
+        state.crowd
+      ) {
+        state.crowdSeconds +=
+          1;
+      }
+
+      state.lastCrowdTick =
+        now;
+    }
+
+    function getSpawnInterval() {
+      return (
+        CONFIG.baseSpawnMs -
+        (
+          CONFIG.baseSpawnMs -
+          CONFIG.minSpawnMs
+        ) *
+        state.risk
+      );
+    }
+
+    function maybeSpawnObstacle(
+      now
+    ) {
+      const spawnInterval =
+        getSpawnInterval();
+
+      if (
+        now -
+        state.lastSpawn <=
+        spawnInterval
+      ) {
+        return;
+      }
+
+      spawnObstacle();
+
+      if (
+        state.crowd &&
+        Math.random() > 0.5
+      ) {
+        spawnObstacle();
+      }
+
+      if (
+        state.risk > 0.75 &&
+        Math.random() > 0.72
+      ) {
+        spawnObstacle();
+      }
+
+      state.lastSpawn =
+        now;
+    }
+
+    function updatePlayer() {
+      state.playerX +=
+        (
+          state.targetX -
+          state.playerX
+        ) *
+        0.12;
+    }
+
+    function registerCollision(
+      obstacle,
+      width,
+      height,
+      now
+    ) {
+      if (
+        now -
+        state.lastCollisionAt <
+        CONFIG.collisionCooldown
+      ) {
+        return;
+      }
+
+      obstacle.hit =
+        true;
+
+      state.collisions +=
+        1;
+
+      state.streak =
+        0;
+
+      state.lastCollisionAt =
+        now;
+
+      const x =
+        obstacle.x *
+        width;
+
+      const y =
+        obstacle.y *
+        height;
+
+      triggerCollisionFeedback(
+        x,
+        y
+      );
+    }
+
+    function registerDodge(
+      obstacle,
+      width,
+      height
+    ) {
+      obstacle.counted =
+        true;
+
+      if (
+        obstacle.hit
+      ) {
+        return;
+      }
+
+      state.dodges +=
+        1;
+
+      state.streak +=
+        1;
+
+      state.maxStreak =
+        Math.max(
+          state.maxStreak,
+          state.streak
+        );
+
+      triggerDodgeFeedback(
+        obstacle.x * width,
+        Math.min(
+          height - 120,
+          obstacle.y * height
+        )
+      );
+    }
+
+    function updateObstacles(
+      width,
+      height,
+      now
+    ) {
+      state.obstacles.forEach(
+        (obstacle) => {
+          obstacle.gait +=
+            0.14;
+
+          obstacle.x +=
+            obstacle.sway *
+            (
+              0.6 +
+              state.risk
+            );
+
+          obstacle.x =
+            clamp(
+              obstacle.x,
+              0.08,
+              0.92
+            );
+
+          obstacle.y +=
+            obstacle.speed /
+            60 *
+            (
+              1 +
+              state.risk * 0.7
+            );
+
+          const collision =
+            !obstacle.hit &&
+            obstacleCollision(
+              obstacle,
+              state.playerX
+            );
+
+          if (
+            collision
+          ) {
+            registerCollision(
+              obstacle,
+              width,
+              height,
+              now
+            );
+          }
+
+          if (
+            !obstacle.counted &&
+            obstacle.y > 1.08
+          ) {
+            registerDodge(
+              obstacle,
+              width,
+              height
+            );
+          }
+        }
+      );
+
+      state.obstacles =
+        state.obstacles.filter(
+          (obstacle) => {
+            return (
+              obstacle.y <
+              1.22
+            );
+          }
+        );
+    }
+
+    function applyScreenShake(
+      context
+    ) {
+      if (
+        state.screenShake <= 0
+      ) {
+        return;
+      }
+
+      const amount =
+        state.screenShake;
+
+      context.translate(
+        randomRange(
+          -amount,
+          amount
+        ),
+        randomRange(
+          -amount,
+          amount
+        )
+      );
+
+      state.screenShake *=
+        0.78;
+
+      if (
+        state.screenShake <
+        0.4
+      ) {
+        state.screenShake =
+          0;
+      }
+    }
+
+    function renderGameScene(
+      now,
+      width,
+      height
+    ) {
+      gameContext.save();
+
+      applyScreenShake(
+        gameContext
+      );
+
+      gameContext.clearRect(
+        -20,
+        -20,
+        width + 40,
+        height + 40
+      );
+
+      drawPerspectiveGuide(
+        gameContext,
+        width,
+        height
+      );
+
+      drawLaneMarks(
+        gameContext,
+        width,
+        height
+      );
+
+      drawRoute(
+        gameContext,
+        width,
+        height
+      );
+
+      state.obstacles
+        .slice()
+        .sort(
+          (a, b) => {
+            return a.y - b.y;
+          }
+        )
+        .forEach(
+          (obstacle) => {
+            drawObstacle(
+              gameContext,
+              obstacle,
+              width,
+              height
+            );
+          }
+        );
+
+      drawPlayer(
+        gameContext,
+        width,
+        height,
+        now
+      );
+
+      gameContext.restore();
+    }
+
+    function renderEffects() {
+      const rect =
+        fxCanvas.getBoundingClientRect();
+
+      fxContext.clearRect(
+        0,
+        0,
+        rect.width,
+        rect.height
+      );
+
+      drawParticles(
+        fxContext
+      );
+
+      drawHitText(
+        fxContext
+      );
+    }
+
+    function updateEffects() {
+      updateParticles();
+      updateHitText();
+    }
+
+    function updateDebug(
+      now
+    ) {
+      if (
+        !state.debugVisible
+      ) {
+        return;
+      }
+
+      const output =
+        $("debug-output");
+
+      const lines =
+        [
+          `mode: ${state.mode}`,
+          `running: ${state.running}`,
+          `paused: ${state.paused}`,
+          `risk: ${state.risk.toFixed(3)}`,
+          `people: ${state.people}`,
+          `motos: ${state.motos}`,
+          `crowd: ${state.crowd}`,
+          `sound: ${state.sound.toFixed(3)}`,
+          `obstacles: ${state.obstacles.length}`,
+          `collisions: ${state.collisions}`,
+          `dodges: ${state.dodges}`,
+          `streak: ${state.streak}`,
+          `score: ${state.score}`,
+          `time: ${Math.round(now)}`,
+        ];
+
+      output.textContent =
+        lines.join(
+          "\n"
+        );
+    }
+
+    function endGame() {
+      state.running =
+        false;
+
+      if (
+        state.frameId
+      ) {
+        cancelAnimationFrame(
+          state.frameId
+        );
+      }
+
+      updateScore();
+
+      const quality =
+        Math.max(
+          0,
+          100 -
+          state.collisions *
+          15
+        );
+
+      $("stat-collisions").textContent =
+        state.collisions;
+
+      $("stat-dodges").textContent =
+        state.dodges;
+
+      $("stat-people").textContent =
+        state.maxPeople;
+
+      $("stat-motos").textContent =
+        state.totalMotos;
+
+      $("stat-sound").textContent =
+        state.soundPeaks;
+
+      $("stat-crowd").textContent =
+        `${Math.round(
+          state.crowdSeconds
+        )} s`;
+
+      if (
+        quality > 80
+      ) {
+        $("result-message").textContent =
+          "Atravesaste el recorrido con pocas colisiones. Aun así, cada evasión muestra cuánto exige el espacio antes de llegar a la entrada.";
+      } else if (
+        quality > 50
+      ) {
+        $("result-message").textContent =
+          "El recorrido exigió corregir la trayectoria varias veces. La mecánica convierte pequeñas decisiones cotidianas en algo visible.";
+      } else {
+        $("result-message").textContent =
+          "El recorrido estuvo cargado de interrupciones. El juego exagera una situación cotidiana para volver visible cuánto se negocia el paso.";
+      }
+
+      setScreen(
+        "result"
+      );
+    }
+
+    function gameLoop(
+      now
+    ) {
+      if (
+        !state.running
+      ) {
+        return;
+      }
+
+      if (
+        state.paused
+      ) {
+        state.frameId =
+          requestAnimationFrame(
+            gameLoop
+          );
+
+        return;
+      }
+
+      const rect =
+        gameCanvas.getBoundingClientRect();
+
+      const width =
+        rect.width;
+
+      const height =
+        rect.height;
+
+      const timer =
+        updateTimer(
+          now
+        );
+
+      if (
+        timer.remaining <= 0
+      ) {
+        endGame();
+        return;
+      }
+
+      if (
+        state.mode === "demo"
+      ) {
+        demoSensors();
+      }
+
+      readSound();
+
+      detectScene(
+        now
+      );
+
+      updateHUD();
+
+      updateCrowdTime(
+        now
+      );
+
+      maybeSpawnObstacle(
+        now
+      );
+
+      updatePlayer();
+
+      updateObstacles(
+        width,
+        height,
+        now
+      );
+
+      updateEffects();
+
+      updateScore();
+
+      renderGameScene(
+        now,
+        width,
+        height
+      );
+
+      renderEffects();
+
+      drawDetections();
+
+      updateDebug(
+        now
+      );
+
+      state.frameId =
+        requestAnimationFrame(
+          gameLoop
+        );
+    }
+
+    async function startAR() {
+      setScreen(
+        "game"
+      );
+
+      resizeCanvases();
+
+      setStatus(
+        "SOLICITANDO CÁMARA Y MICRÓFONO…",
+        "warn"
+      );
+
+      try {
+        state.mode =
+          "ar";
+
+        state.stream =
+          await navigator.mediaDevices.getUserMedia(
+            {
+              video: {
+                facingMode: {
+                  ideal:
+                    "environment",
+                },
+              },
+              audio: true,
+            }
+          );
+
+        video.srcObject =
+          state.stream;
+
+        await video.play();
+
+        await setupAudio(
+          state.stream
+        );
+
+        setStatus(
+          "CARGANDO MODELO DE DETECCIÓN…",
+          "warn"
+        );
+
+        state.model =
+          await cocoSsd.load();
+
+        setStatus(
+          "ENTORNO LISTO · OBSERVA DESDE UN PUNTO SEGURO",
+          "ok"
+        );
+
+        resetState();
+
+        if (
+          !state.tutorialShown
+        ) {
+          showTutorial();
+        }
+
+        state.frameId =
+          requestAnimationFrame(
+            gameLoop
+          );
+      } catch (error) {
+        $("permission-dialog").showModal();
+
+        startDemo();
+      }
+    }
+
+    function startDemo() {
+      state.mode =
+        "demo";
+
+      setScreen(
+        "game"
+      );
+
+      resizeCanvases();
+
+      setStatus(
+        "MODO DEMOSTRACIÓN · SENSORES SIMULADOS",
+        "ok"
+      );
+
+      resetState();
+
+      if (
+        !state.tutorialShown
+      ) {
+        showTutorial();
+      }
+
+      state.frameId =
+        requestAnimationFrame(
+          gameLoop
+        );
+    }
+
+    function stopStream() {
+      if (
+        state.stream
+      ) {
+        state.stream
+          .getTracks()
+          .forEach(
+            (track) => {
+              track.stop();
+            }
+          );
+
+        state.stream =
+          null;
+      }
+
+      if (
+        state.audioCtx
+      ) {
+        state.audioCtx
+          .close()
+          .catch(
+            () => {}
+          );
+
+        state.audioCtx =
+          null;
+      }
+
+      state.analyser =
+        null;
+
+      state.audioData =
+        null;
+    }
+
+    function move(
+      delta
+    ) {
+      state.targetX =
+        clamp(
+          state.targetX +
+          delta,
+          CONFIG.playerMinX,
+          CONFIG.playerMaxX
+        );
+    }
+
+    function centerPlayer() {
+      state.targetX =
+        0.5;
+    }
+
+    function togglePause() {
+      if (
+        !state.running
+      ) {
+        return;
+      }
+
+      if (
+        !state.paused
+      ) {
+        state.paused =
+          true;
+
+        state.pausedAt =
+          performance.now();
+
+        $("pause-card").classList.remove(
+          "hidden"
+        );
+
+        $("pause-btn").textContent =
+          "▶";
+      } else {
+        resumeGame();
+      }
+    }
+
+    function resumeGame() {
+      if (
+        !state.paused
+      ) {
+        return;
+      }
+
+      const now =
+        performance.now();
+
+      state.accumulatedPauseMs +=
+        now -
+        state.pausedAt;
+
+      state.paused =
+        false;
+
+      $("pause-card").classList.add(
+        "hidden"
+      );
+
+      $("pause-btn").textContent =
+        "‖";
+    }
+
+    function toggleSound() {
+      state.soundEnabled =
+        !state.soundEnabled;
+
+      $("sound-btn").textContent =
+        state.soundEnabled
+          ? "♪"
+          : "×";
+
+      if (
+        state.audioCtx &&
+        state.audioCtx.state === "suspended" &&
+        state.soundEnabled
+      ) {
+        state.audioCtx.resume();
+      }
+    }
+
+    function showTutorial() {
+      $("tutorial-overlay").classList.remove(
+        "hidden"
+      );
+
+      state.paused =
+        true;
+
+      state.pausedAt =
+        performance.now();
+    }
+
+    function hideTutorial() {
+      $("tutorial-overlay").classList.add(
+        "hidden"
+      );
+
+      state.tutorialShown =
+        true;
+
+      if (
+        state.running &&
+        state.paused
+      ) {
+        const now =
+          performance.now();
+
+        state.accumulatedPauseMs +=
+          now -
+          state.pausedAt;
+
+        state.paused =
+          false;
+      }
+    }
+
+    function toggleDebug() {
+      state.debugVisible =
+        !state.debugVisible;
+
+      $("debug-panel").classList.toggle(
+        "hidden",
+        !state.debugVisible
+      );
+    }
+
+    $("left-btn").addEventListener(
+      "pointerdown",
+      () => {
+        move(
+          -CONFIG.playerStep
+        );
+      }
+    );
+
+    $("right-btn").addEventListener(
+      "pointerdown",
+      () => {
+        move(
+          CONFIG.playerStep
+        );
+      }
+    );
+
+    $("center-btn").addEventListener(
+      "pointerdown",
+      centerPlayer
+    );
+
+    let touchX =
+      null;
+
+    $("camera-stage").addEventListener(
+      "pointerdown",
+      (event) => {
+        touchX =
+          event.clientX;
+      }
+    );
+
+    $("camera-stage").addEventListener(
+      "pointerup",
+      (event) => {
+        if (
+          touchX === null
+        ) {
+          return;
+        }
+
+        const deltaX =
+          event.clientX -
+          touchX;
+
+        if (
+          Math.abs(
+            deltaX
+          ) > 24
+        ) {
+          move(
+            deltaX > 0
+              ? 0.12
+              : -0.12
+          );
+        }
+
+        touchX =
+          null;
+      }
+    );
+
+    window.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          event.key === "ArrowLeft" ||
+          event.key.toLowerCase() === "a"
+        ) {
+          move(
+            -CONFIG.playerStep
+          );
+        }
+
+        if (
+          event.key === "ArrowRight" ||
+          event.key.toLowerCase() === "d"
+        ) {
+          move(
+            CONFIG.playerStep
+          );
+        }
+
+        if (
+          event.key === " "
+        ) {
+          centerPlayer();
+        }
+
+        if (
+          event.key.toLowerCase() === "p"
+        ) {
+          togglePause();
+        }
+
+        if (
+          event.key.toLowerCase() === "m"
+        ) {
+          toggleSound();
+        }
+
+        if (
+          event.key === "`"
+        ) {
+          toggleDebug();
+        }
+      }
+    );
+
+    $("start-ar").addEventListener(
+      "click",
+      startAR
+    );
+
+    $("start-demo").addEventListener(
+      "click",
+      startDemo
+    );
+
+    $("exit-btn").addEventListener(
+      "click",
+      () => {
+        state.running =
+          false;
+
+        stopStream();
+
+        setScreen(
+          "intro"
+        );
+      }
+    );
+
+    $("play-again").addEventListener(
+      "click",
+      () => {
+        if (
+          state.mode === "ar" &&
+          state.stream
+        ) {
+          startAR();
+        } else {
+          startDemo();
+        }
+      }
+    );
+
+    $("back-intro").addEventListener(
+      "click",
+      () => {
+        stopStream();
+
+        setScreen(
+          "intro"
+        );
+      }
+    );
+
+    $("dialog-close").addEventListener(
+      "click",
+      () => {
+        $("permission-dialog").close();
+      }
+    );
+
+    $("pause-btn").addEventListener(
+      "click",
+      togglePause
+    );
+
+    $("resume-btn").addEventListener(
+      "click",
+      resumeGame
+    );
+
+    $("sound-btn").addEventListener(
+      "click",
+      toggleSound
+    );
+
+    $("help-btn").addEventListener(
+      "click",
+      showTutorial
+    );
+
+    $("close-help").addEventListener(
+      "click",
+      hideTutorial
+    );
+
+    $("brand-block");
+
+    $("game-time").addEventListener(
+      "dblclick",
+      toggleDebug
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      stopStream
+    );
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (
+          document.hidden &&
+          state.running &&
+          !state.paused
+        ) {
+          togglePause();
+        }
+      }
+    );
+  </script>
+</body>
+</html>
